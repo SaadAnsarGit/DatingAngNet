@@ -14,6 +14,26 @@ builder.Services.AddDbContext<DataContext>(options=>{
   options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
+// builder.Services.AddCors(c =>
+// {
+//     c.AddDefaultPolicy(policy=>{
+//        policy.AllowAnyOrigin()
+//        .AllowAnyMethod()
+//        .AllowAnyHeader();
+//     });
+// });
+
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy("MyPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyPolicy");
 
 app.UseAuthorization();
 
