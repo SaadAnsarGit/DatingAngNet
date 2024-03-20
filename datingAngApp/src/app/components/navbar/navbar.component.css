@@ -1,0 +1,29 @@
+
+
+.logout{
+    margin-left: 5px;
+}
+
+.username{
+    
+    min-width: 200px
+}
+
+.password{
+   
+   min-width: 200px
+}
+
+form{
+    position: fixed;
+    margin-left: 680px;
+}
+
+.text-light{
+    cursor: pointer;
+}
+
+
+
+
+

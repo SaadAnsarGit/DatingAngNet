@@ -60,6 +60,7 @@ namespace DatingApp.Controllers
 
           return Ok(new{
             token=userDto.Token,
+            username=userDto.Username,
             Message="The register is done",
           });
 
@@ -104,6 +105,7 @@ namespace DatingApp.Controllers
 
             return Ok(new{
                token=userDto.Token,
+               username=userDto.Username,
                Message="Login successeded"
             });
        }
