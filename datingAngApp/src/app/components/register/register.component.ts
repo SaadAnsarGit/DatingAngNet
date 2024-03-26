@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input,OnInit,Output,EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
+import { NgToastService } from 'ng-angular-popup';
 
 
 @Component({
@@ -25,17 +26,16 @@ export class RegisterComponent implements OnInit {
     this.usersFromHomeComponent.forEach(element => {
       this.usersList.push(element);
     });
-
-    // this.Users=this.usersList;
-    // console.log(this.Users);
     this.getUsers();
   }
 
 
-  constructor(private http:HttpClient,private accountService:AccountService){
+  constructor(private http:HttpClient,
+    private accountService:AccountService,
+    private toast:NgToastService
+    ){
 
   }
-
 
   register(form:NgForm){
     this.accountService.register(this.Model)
@@ -44,10 +44,12 @@ export class RegisterComponent implements OnInit {
         next:res=>{
           console.log(res);
           form.reset();
+          this.toast.success({detail:"SUCCESS",summary:"Register done !",duration:3000});
           this.cancel();
         },
         error:err=>{
           console.log(err);
+          this.toast.error({detail:"ERROR",summary:err.error.message,duration:3000});
         }
       }
     )
