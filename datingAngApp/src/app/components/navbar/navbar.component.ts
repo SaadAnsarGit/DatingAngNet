@@ -31,6 +31,7 @@ export class NavbarComponent {
         this.router.navigateByUrl('/members');
       },
       error:err=>{
+        form.reset();
         console.log(err);
         this.toast.error({detail:"ERROR",summary:"Login Error !",duration:3000});
       }

@@ -28,10 +28,8 @@ namespace DatingApp.Controllers
        [HttpPost("Register")]
        public async Task<IActionResult> UserSignIn(RegisterDto register){
 
-         if(register.Username==null || register.Password==null){
-            return BadRequest(new{
-                Message="The request is invalid"
-            });
+         if(register.Username==null){
+            return NotFound("The username is not Found");
          }
 
           using var hmac=new HMACSHA256();
