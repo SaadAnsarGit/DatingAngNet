@@ -71,6 +71,7 @@ export class TestErrorsComponent {
       },
       error:err=>{
         this.validationErrors=err;
+        console.log(this.validationErrors);
         
       }
     })

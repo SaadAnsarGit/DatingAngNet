@@ -9,6 +9,10 @@ using DatingApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using AutoMapper;
+using DatingApp.Helpers;
 
 namespace DatingApp.Extensions
 {
@@ -16,6 +20,8 @@ namespace DatingApp.Extensions
     {
          public static IServiceCollection AddAplicationServices(this IServiceCollection services,IConfiguration configuration ){
             services.AddScoped<ITokenService,TokenService>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options=>{
             options.UseSqlServer(configuration.GetConnectionString("DevConnection"));
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

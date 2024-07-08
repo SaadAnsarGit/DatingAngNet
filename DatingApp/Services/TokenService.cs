@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DatingApp.Entities;
 using DatingApp.Interfaces;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace DatingApp.Services
 {

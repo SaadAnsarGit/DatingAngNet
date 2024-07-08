@@ -1,0 +1,128 @@
+[
+    {
+      "Username": "Amal.Rh",
+      "Gender": "female",
+      "Introduction": "Hi this is a dating json data",
+      "LoockingFor": "Job",
+      "Interests": "Sports",
+      "City": "Oujda",
+      "Country": "Morocco",
+      "DateOfBirth": "1998-12-16",
+      "Created": "2024-06-13",
+      "LastActive": "2024-06-13",
+      "KnownAs":"AmalGhani",
+      "Photos": [
+                 { "Url":"https://randomuser.me/api/portraits/women/54.jpg",
+                   "IsMain":true
+                 }
+                ]
+        },
+    {
+             "Username": "Chaimae.Chakrouni",
+      "Gender": "female",
+      "Introduction": "Hi this is a dating json data",
+      "LoockingFor": "Job",
+      "Interests": "Sports",
+      "City": "Oujda",
+      "Country": "Morocco",
+      "DateOfBirth": "1998-12-16",
+      "Created": "2024-06-13",
+      "LastActive": "2024-06-13",
+      "KnownAs":"ChaimaeCasablanca",
+      "Photos": [
+                 { "Url":"https://randomuser.me/api/portraits/women/55.jpg",
+                   "IsMain":true
+                 }
+                ]
+        },
+    {
+           "Username": "Chaimae.Rahmani",
+      "Gender": "female",
+      "Introduction": "Hi this is a dating json data",
+      "LoockingFor": "Job",
+      "Interests": "Sports",
+      "City": "Oujda",
+      "Country": "Morocco",
+      "DateOfBirth": "1998-12-16",
+      "Created": "2024-06-13",
+      "LastActive": "2024-06-13",
+      "KnownAs":"Chimou",
+      "Photos": [
+                 { "Url":"https://randomuser.me/api/portraits/women/56.jpg",
+                   "IsMain":true
+                 }
+                ]
+        },
+    {
+       "Username": "Said.Hicham",
+       "Gender": "male",
+       "Introduction": "Hi this is a dating json data",
+       "LoockingFor": "Job",
+       "Interests": "Sports",
+       "City": "Oujda",
+       "Country": "Morocco",
+       "DateOfBirth": "1997-12-15",
+       "Created": "2024-06-13",
+       "LastActive": "2024-06-13",
+       "KnownAs":"Chimou",
+       "Photos": [
+                  { "Url":"https://randomuser.me/api/portraits/men/93.jpg",
+                    "IsMain":true
+                  }
+                 ]
+    },
+    {
+        "Username": "Amin.Kajeioui",
+        "Gender": "male",
+        "Introduction": "Hi this is a dating json data",
+        "LoockingFor": "Job",
+        "Interests": "Sports",
+        "City": "Oujda",
+        "Country": "Morocco",
+        "DateOfBirth": "1996-12-15",
+        "Created": "2024-06-13",
+        "LastActive": "2024-06-13",
+        "KnownAs":"Aminux",
+        "Photos": [
+                   { "Url":"https://randomuser.me/api/portraits/men/94.jpg",
+                     "IsMain":true
+                   }
+                  ]
+     },
+     {
+        "Username": "Mehdi.Kossir",
+        "Gender": "male",
+        "Introduction": "Hi this is a dating json data",
+        "LoockingFor": "Job",
+        "Interests": "Sports",
+        "City": "Oujda",
+        "Country": "Morocco",
+        "DateOfBirth": "1996-11-23",
+        "Created": "2024-06-13",
+        "LastActive": "2024-06-13",
+        "KnownAs":"Midou",
+        "Photos": [
+                   { "Url":"https://randomuser.me/api/portraits/men/95.jpg",
+                     "IsMain":true
+                   }
+                  ]
+     },
+     {
+      "Username": "NezhaAnsari",
+      "Gender": "Female",
+      "Introduction": "Hi this is a dating json data",
+      "LoockingFor": "Job",
+      "Interests": "Administration",
+      "City": "Oujda",
+      "Country": "Morocco",
+      "DateOfBirth": "1992-11-23",
+      "Created": "2024-06-13",
+      "LastActive": "2024-06-13",
+      "KnownAs":"Neza",
+      "Photos": [
+                 { "Url":"https://randomuser.me/api/portraits/women/57.jpg",
+                   "IsMain":true
+                 }
+                ]
+   }
+]  
