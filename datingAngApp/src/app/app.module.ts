@@ -18,6 +18,10 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { MemberCardComponent } from './components/member-card/member-card.component';
+import { jwtInterceptor } from './interceptors/jwt.interceptor';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -32,7 +36,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     MessagesComponent,
     TestErrorsComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +45,12 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     provideClientHydration(),
-    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:jwtInterceptor,multi:true}
   ],
   // schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
+import { Member } from '../../models/member';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
   registerMode:boolean=false;
   baseUrl:string="https://localhost:7011/api/Users";
   users:any;
-
+  
   constructor(private http:HttpClient){}
 
   ngOnInit(): void {

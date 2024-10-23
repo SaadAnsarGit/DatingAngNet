@@ -13,6 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor{
     return next.handle(req).pipe(
       catchError(error=>{
         if(error){
+          debugger;
           switch(error.status){
             case 400:
               console.log(error.error.errors);
@@ -44,7 +45,6 @@ export class ErrorInterceptor implements HttpInterceptor{
               break;  
             default:
               this.toast.error({detail:"ERROR",summary:"Something was expected went wrong",duration:3000});
-              console.log(error);
               break;
           }
         }

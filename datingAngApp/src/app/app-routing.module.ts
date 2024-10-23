@@ -20,17 +20,17 @@ const routes: Routes = [
       {path:'messages',component:MessagesComponent},
       {path:'lists',component:ListsComponent},
       {path:'members',component:MemberListComponent},
-      {path:'member/:id',component:MemberDetailComponent},
+      {path:'members/:username',component:MemberDetailComponent}
     ]
   },
   {path:'errors',component:TestErrorsComponent},
-  {path:'not-found',component:NotFoundComponent},
   {path:'server-error',component:ServerErrorComponent},
   {path:'**',component:NotFoundComponent,pathMatch:'full'},
+  {path:'not-found',component:NotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
