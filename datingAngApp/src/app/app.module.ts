@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,8 +20,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberCardComponent } from './components/member-card/member-card.component';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { MemberEditComponent } from './components/member-edit/member-edit/member-edit.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { loadingInterceptor } from './interceptors/loading.interceptor';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { RouterModule } from '@angular/router';
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -46,11 +48,13 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
+    NgxSpinnerModule
   ],
   providers: [
     provideClientHydration(),
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
-    {provide:HTTP_INTERCEPTORS,useClass:jwtInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:jwtInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:loadingInterceptor,multi:true}
   ],
   // schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

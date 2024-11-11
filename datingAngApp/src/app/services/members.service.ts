@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Member } from '../models/member';
 
 
@@ -10,6 +10,7 @@ import { Member } from '../models/member';
 })
 export class MembersService {
  
+  members:Member[]=[];
   baseUrl:string="https://localhost:7011/api";
 
   httpOptions={
@@ -23,7 +24,16 @@ export class MembersService {
   constructor(private https:HttpClient) { }
 
   getMembers(){
-    return this.https.get<Member[]>(`${this.baseUrl}/Users`);
+    debugger;
+    if(this.members.length>0){
+      return of(this.members);
+    }
+    return this.https.get<Member[]>(`${this.baseUrl}/Users`).pipe(
+      map(Members=>{
+        this.members=Members;
+        return this.members;
+      })
+    )
   }
 
   handleError(error){
@@ -31,6 +41,19 @@ export class MembersService {
   }
 
   getMember(username){
+    const member=this.members.find(x=>x.username===username);
+    if(member!==undefined){
+      return of(member);
+    }
     return this.https.get<Member>(`${this.baseUrl}/Users`+'/'+username);
+  }
+
+  updateMember(member:Member){
+    return this.https.put<any>(`${this.baseUrl}/Users`,member).pipe(
+      map(()=>{
+        const index=this.members.indexOf(member);
+        this.members[index]=member;
+      })
+    )
   }
 }

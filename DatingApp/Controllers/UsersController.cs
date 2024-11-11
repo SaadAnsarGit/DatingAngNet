@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Data;
@@ -44,6 +45,23 @@ namespace DatingApp.Controllers
             //  var userToReturn=this.mapper.Map<MemberDto>(user);
             //  return userToReturn;
             return await userRepository.GetMemberAsync(username);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult>UpdateUser(MemberUpdateDto member){
+
+            var username=User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user=await userRepository.GetUserByUsernameAsync(username);
+            mapper.Map(member,user);
+            userRepository.Update(user);
+            if(await userRepository.SaveAllAsync()){
+                return Ok(new{
+                    Message="The user is updated"
+                });
+            }
+            return BadRequest(new{
+                Message="The user is not updated"
+            });
         }
     }
 }

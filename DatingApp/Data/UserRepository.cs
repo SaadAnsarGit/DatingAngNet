@@ -56,9 +56,14 @@ namespace DatingApp.Data
 
         public void Update(AppUser user)
         {
-            this._db.Users.Update(user);
-            // this._db.Entry(user).State=EntityState.Modified;
+            if(user==null){
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
+            }
+            // this._db.Users.Update(user);
+            // this._db.Users.Attach(user).State=EntityState.Modified;
+            this._db.Entry(user).State=EntityState.Modified;
         }
+
 
         
     }
