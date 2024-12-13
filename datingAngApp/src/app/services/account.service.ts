@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import { User } from '../models/user';
 import { ReplaySubject } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { MembersService } from './members.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,7 @@ export class AccountService {
          const user=response;
          console.log(user);
          if(user){
-          localStorage.setItem("user",JSON.stringify(user));
-          this.setCurrentUserSource.next(user);
+          this.setCurrentUser(user);
          }
       })
     )
@@ -35,7 +35,6 @@ export class AccountService {
       map((response:User)=>{
           const user=response;
           if(user){
-            localStorage.setItem("userRegister",JSON.stringify(user));
             this.setCurrentUser(user);
           }
           return user;
@@ -43,11 +42,9 @@ export class AccountService {
     )
   }
 
-
-
   setCurrentUser(user:User){
+   localStorage.setItem("user",JSON.stringify(user));
    this.setCurrentUserSource.next(user);
-   console.log(this.currentUser$);
   }
 
   logout(){

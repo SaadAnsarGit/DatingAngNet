@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.Data;
 using DatingApp.DTO;
 using DatingApp.Entities;
@@ -19,10 +21,12 @@ namespace DatingApp.Controllers
     {
         private readonly DataContext _db;
         public readonly ITokenService tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(DataContext db,ITokenService tokenService){
+        public AccountController(DataContext db,ITokenService tokenService,IMapper mapper){
            this._db=db;
            this.tokenService=tokenService;
+           _mapper=mapper;
         }
 
        [HttpPost("Register")]
@@ -42,23 +46,24 @@ namespace DatingApp.Controllers
              });
           }
 
-          var user=new AppUser{
-            Username=register.Username.ToLower(),
-            PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-            PasswordSalt=hmac.Key
-          };
-
+            var user= _mapper.Map<AppUser>(register);
+            user.Username=register.Username.ToLower();
+            user.PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password));
+            user.PasswordSalt=hmac.Key;
+          
           await this._db.Users.AddAsync(user);
           await this._db.SaveChangesAsync();
 
           var userDto=new UserDto{
             Username=user.Username,
-            Token=this.tokenService.CreateToken(user)
+            Token=this.tokenService.CreateToken(user),
+            KnownAs=user.KnownAs
           };
 
           return Ok(new{
             token=userDto.Token,
             username=userDto.Username,
+            knownAs=user.KnownAs,
             Message="The register is done",
           });
 
@@ -80,7 +85,7 @@ namespace DatingApp.Controllers
                });
             }
 
-            var user=await this._db.Users.FirstOrDefaultAsync(d=>d.Username==login.Username.ToLower());
+            var user=await this._db.Users.Include(p=>p.Photos).FirstOrDefaultAsync(d=>d.Username==login.Username.ToLower());
             if(user==null){
                return NotFound(new{
                   Message="The user is not found"
@@ -96,14 +101,18 @@ namespace DatingApp.Controllers
                }
             }
 
+            
             var userDto=new UserDto{
                Username=user.Username,
-               Token=this.tokenService.CreateToken(user)
+               Token=this.tokenService.CreateToken(user),
+               PhotoUrl=user.Photos.FirstOrDefault(d=>d.IsMain)?.Url,
+               KnownAs=user.KnownAs
             };
 
             return Ok(new{
                token=userDto.Token,
                username=userDto.Username,
+               photoUrl=userDto.PhotoUrl,
                Message="Login successeded"
             });
        }

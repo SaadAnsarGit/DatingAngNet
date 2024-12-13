@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgToastService } from 'ng-angular-popup';
+import { MembersService } from '../../services/members.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,7 @@ export class NavbarComponent {
   // currentUser$:Observable<User>;
   constructor(public accountService:AccountService,
     private router:Router,
-    private toast:NgToastService
+    private toast:NgToastService,
     ){}
 
 

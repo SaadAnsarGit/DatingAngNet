@@ -11,6 +11,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberEditComponent } from './components/member-edit/member-edit/member-edit.component';
 import { preventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
       {path:'lists',component:ListsComponent},
       {path:'members',component:MemberListComponent},
       {path:'members/:username',component:MemberDetailComponent},
-      {path:'member/edit',component:MemberEditComponent,canDeactivate:[preventUnsavedChangesGuard]}
+      {path:'member/edit',component:MemberEditComponent,canDeactivate:[preventUnsavedChangesGuard]},
+      {path:'photo-editor',component:PhotoEditorComponent}
     ]
   },
   {path:'errors',component:TestErrorsComponent},

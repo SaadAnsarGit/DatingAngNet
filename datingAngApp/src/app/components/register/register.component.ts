@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input,OnInit,Output,EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component,OnInit,Output,EventEmitter } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup,ValidatorFn, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { NgToastService } from 'ng-angular-popup';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,44 +13,68 @@ import { NgToastService } from 'ng-angular-popup';
 })
 export class RegisterComponent implements OnInit {
 
-  Model:any={};
-  usersList:any=[];
   Users:any=[];
+  registerForm:FormGroup;
+  validationErrors:string[]=[];
 
-  @Input() usersFromHomeComponent:any;
   @Output() registerToggle=new EventEmitter<boolean>();
 
   baseUrl:string="https://localhost:7011/api/Users";
+  
+  maxDate:Date;
 
   ngOnInit(): void {
-    debugger;
-    this.usersFromHomeComponent.forEach(element => {
-      this.usersList.push(element);
-    });
-    this.getUsers();
+    this.initializeForm();
+    this.maxDate=new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear()-18);
   }
 
 
   constructor(private http:HttpClient,
     private accountService:AccountService,
-    private toast:NgToastService
+    private toast:NgToastService,
+    private fb:FormBuilder,
+    private route:Router
     ){
 
   }
 
-  register(form:NgForm){
-    this.accountService.register(this.Model)
+  initializeForm(){
+    this.registerForm=this.fb.group({
+      gender:['male'],
+      knownAs:['',Validators.required],
+      dateOfBirth:['',Validators.required],
+      city:['',Validators.required],
+      country:['',Validators.required],
+      username:['',Validators.required],
+      password:['',[Validators.required,Validators.minLength(4),Validators.maxLength(8)]],
+      confirmPassword:['',[Validators.required,this.matchValues('password')]]
+    });
+
+    this.registerForm.controls.password.valueChanges.subscribe(()=>{
+      this.registerForm.controls.confirmPassword.updateValueAndValidity();
+    })
+  }
+
+  matchValues(matchTo:string):ValidatorFn{
+    return (control:AbstractControl)=>{
+      return control?.value===control?.parent?.controls[matchTo].value ? null : {isMatching:true}
+    }
+  }
+
+  register(){
+    this.accountService.register(this.registerForm.value)
     .subscribe(
       {
         next:res=>{
           console.log(res);
-          form.reset();
           this.toast.success({detail:"SUCCESS",summary:"Register done !",duration:3000});
-          this.cancel();
+          this.route.navigateByUrl('/members');
+          // this.cancel();
         },
         error:err=>{
           console.log(err);
-          this.toast.error({detail:"ERROR",summary:err.error.message,duration:3000});
+          this.validationErrors=err;
         }
       }
     )

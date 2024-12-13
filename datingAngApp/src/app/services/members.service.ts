@@ -22,7 +22,6 @@ export class MembersService {
   }
 
   constructor(private https:HttpClient) { }
-
   getMembers(){
     debugger;
     if(this.members.length>0){
@@ -55,5 +54,13 @@ export class MembersService {
         this.members[index]=member;
       })
     )
+  }
+
+  setMainPhoto(photoId:number){
+    return this.https.put<any>(`${this.baseUrl}/Users/set-main-photo/`+photoId,photoId);
+  }
+
+  deletePhoto(photoId:any){
+    return this.https.delete<any>(`${this.baseUrl}/Users/delete-photo/`+photoId,photoId);
   }
 }
