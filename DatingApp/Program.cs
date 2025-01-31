@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.Extensions.Logging;
+using DatingApp.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITokenService,TokenService>();
+builder.Services.AddScoped<LogUserActivity>();
 
 builder.Services.AddDbContext<DataContext>(options=>{
   options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection"));

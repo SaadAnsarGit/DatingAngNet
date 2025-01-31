@@ -13,8 +13,6 @@ export class MemberCardComponent implements OnInit {
   @Input() member:any;
 
   ngOnInit(): void {
-      debugger;
-      console.log(this.member);
   }
 
   constructor(private route:Router){}

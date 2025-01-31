@@ -22,6 +22,7 @@ namespace DatingApp.Extensions
             services.AddScoped<IUserRepository,UserRepository>();
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService,PhotoService>();
+            // services.AddScoped<LogUserActivity>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options=>{
             options.UseSqlServer(configuration.GetConnectionString("DevConnection"));

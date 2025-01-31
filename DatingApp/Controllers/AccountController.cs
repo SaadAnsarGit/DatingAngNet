@@ -9,12 +9,14 @@ using AutoMapper;
 using DatingApp.Data;
 using DatingApp.DTO;
 using DatingApp.Entities;
+using DatingApp.Helpers;
 using DatingApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
@@ -57,13 +59,15 @@ namespace DatingApp.Controllers
           var userDto=new UserDto{
             Username=user.Username,
             Token=this.tokenService.CreateToken(user),
-            KnownAs=user.KnownAs
+            KnownAs=user.KnownAs,
+            Gender=user.Gender
           };
 
           return Ok(new{
             token=userDto.Token,
             username=userDto.Username,
             knownAs=user.KnownAs,
+            gender=userDto.Gender,
             Message="The register is done",
           });
 
@@ -106,13 +110,15 @@ namespace DatingApp.Controllers
                Username=user.Username,
                Token=this.tokenService.CreateToken(user),
                PhotoUrl=user.Photos.FirstOrDefault(d=>d.IsMain)?.Url,
-               KnownAs=user.KnownAs
+               KnownAs=user.KnownAs,
+               Gender=user.Gender
             };
 
             return Ok(new{
                token=userDto.Token,
                username=userDto.Username,
                photoUrl=userDto.PhotoUrl,
+               gender=userDto.Gender,
                Message="Login successeded"
             });
        }
